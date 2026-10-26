@@ -1,0 +1,44 @@
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        name: ATTENDIFY_SESSION
+        http-only: true
+        same-site: lax
+        secure: ${COOKIE_SECURE:false}
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  mail:
+    host: ${BREVO_SMTP_HOST:smtp-relay.brevo.com}
+    port: ${BREVO_SMTP_PORT:587}
+    username: ${BREVO_SMTP_LOGIN:}
+    password: ${BREVO_SMTP_KEY:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+attendify:
+  mail:
+    sender-email: ${BREVO_SENDER_EMAIL:}
+    sender-name: ${BREVO_SENDER_NAME:ATTENDIFY}
+  bootstrap:
+    admin-email: ${ATTENDIFY_ADMIN_EMAIL:}
+    admin-password: ${ATTENDIFY_ADMIN_PASSWORD:}
+    dev-seed: ${ATTENDIFY_DEV_SEED:true}
+  timezone: ${ATTENDIFY_TIMEZONE:Asia/Kolkata}
